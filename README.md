@@ -3,10 +3,10 @@
 #### Table of contest:
 
 ## Table of Contests:
-   [objective](#objective))
-   [instalation](#instalation))
-   [contribution](#contribution))
-   [license](#license))
+   [objective](#objective)
+   [instalation](#instalation)
+   [contribution](#contribution)
+   [license](#license)
 
 ## Objective
 
