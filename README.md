@@ -21,32 +21,32 @@ Para realizar as consultas é necessário alterar o arquivo json
 
 ## Instalation 
 
-Clone the repository 
+   Clone the repository 
 
-git clone https://github.com/vanessaformiga/desafio_tecnico_crawler.git
+   git clone https://github.com/vanessaformiga/desafio_tecnico_crawler.git
 
 
-Instalação necessária para um ambiente virtual
-- pip install virtualenv
+   Instalação necessária para um ambiente virtual
+   - pip install virtualenv
 
-Criando uma nova virtualenv 
-- python -m venv venv 
+   Criando uma nova virtualenv 
+   - python -m venv venv 
 
-Ativando um nova ambiente virtualvenv
-- venv/Scripts/Activate (windows)
-- venv/bin/activate (linux )
+   Ativando um nova ambiente virtualvenv
+   - venv/Scripts/Activate (windows)
+   - venv/bin/activate (linux )
 
-Desativando um ambiente virtualvenv
-- venv deactivate
+   Desativando um ambiente virtualvenv
+   - venv deactivate
 
-Gerar o arquivo 
-- pip freeze > requirements.txt
+   Gerar o arquivo 
+   - pip freeze > requirements.txt
 
-Instalando dependências
-- pip install -r requirements.txt
+   Instalando dependências
+   - pip install -r requirements.txt
 
-Para alterar o arquivo json para realizar as consultas
-arquivo_de_consulta.json
+   Para alterar o arquivo json para realizar as consultas
+   arquivo_de_consulta.json
 
 ## Contribution
 
