@@ -1,14 +1,14 @@
 # # Desafio Técnico Crawler
 
 ## Table of Contests:
-   [objective](#objective)
-   [instalation](#instalation)
-   [contribution](#contribution)
-   [license](#license)
+  - [Objective](#objective)
+  - [Instalation](#instalation)
+  - [Contribution](#contribution)
+  - [License](#license)
 
 ## Objective
 
-O projeto que exeutar a ação de um crawler que realizar consultas em página e extrai informações e salva os valores em arquivo e persiste os valores no banco de dados.
+O objetivo deste projeto é realizar a requisição da url e fazer a extração dos valores por meio da biblioteca BeautifoulSoup e salvar os valores obtidos em um arquivo json, que posteriormente será no banco de dados.
 
 Para o desenvolvimento do projeto foi utilizado a linguagem python.
 

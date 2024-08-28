@@ -7,98 +7,98 @@ import re, os, json, traceback, sys, shutil
 from time import sleep
 from datetime import date, datetime
 
-# realizando a criação da classe prinipal do projeto
-class ConsultarProcessos():
+# creating the project's main class
+class ConsultProcess():
     
-    def criando_diretororio_buscar_processos(self):
-        diretorio_atual= os.getcwdb()
-        self.diretorio_buscar_processos = 'diretorio_buscar_processos'
+    def create_diretory_search_process(self):
+        diretory_actual= os.getcwdb()
+        self.diretory_search_process = 'diretory_search_process'
 
-        # criação de uma pasta para guardar as informações obtidas 
+        # create directory of project 
         try:
-            if not os.path.exists(self.diretorio_buscar_processos):
-                os.makedirs(self.diretorio_buscar_processos)
+            if not os.path.exists(self.diretory_search_process):
+                os.makedirs(self.diretory_search_process)
         except:
-            print("Erro ao criar o diretório para o projeto")
-            
-    # fazer a alteração no json para fazer consultas
+            print("Error the create directory ")
+        
+        #the json to make queries
+        
                 
+    # function that extracts the values           
+    def execute_search_process(self):
+        # save the values in file json
+        with open('arquivos_de_consulta.json', 'r') as file_json:
+            archive = json.load(file_json)
             
-    def executar_buscar_processos(self):
-        # salvar os dados do processo em um arquivo json
-        with open('arquivos_de_consulta.json', 'r') as arquivo_json_file:
-            arquivo = json.load(arquivo_json_file)
-       
-        # acessar os valores acerem consultados no arquivo json
-        consultas = arquivo['valores_consulta']
+        # variables used to capture site values
+        consults = archive['valores_consulta']
         
-        for consulta in consultas:
-            lista_processos = consulta['numero_processo']
-            for numero_processo in lista_processos:
-                self.numero_processo = numero_processo
-                print(f"Número do processo: {self.numero_processo}")
-            self.cnpj = consulta['cnpj']
+        for consult in consults:
+            list_processes = consult['numero_processo']
+            for number_processes in list_processes:
+                self.number_process = number_processes
+                print(f"Número do processo: {self.number_process}")
+            self.cnpj = consult['cnpj']
             print(f"CNPJ: {self.cnpj}")
-            self.nome_da_parte = consulta['nome_da_parte']
-            print(f"Número da parte interessada: {self.nome_da_parte}")
+            self.name_part = consult['nome_da_parte']
+            print(f"Número da Parte Interessada: {self.name_part}")
             
         
-        # endereço da url utilizada para a requisição
+        # url for in use in requests
         url = 'https://eproc.trf2.jus.br/eproc/externo_controlador.php?acao=processo_consulta_publica'
 
-        
+        # making the arrangements for making the request to the site
         try:
             headers = {"User-Agent": "Mozilla/5.0"}
-            # realiza a requisão obtida
+            # exibir header of page
             response = requests.get(url,headers )
             if response.status_code == 200:
-                print("A requisição ocorreu com sucesso")
-                conteudo_pagina = response.content
-                # apresenta o conteúdo da aplicação
-                soup = BeautifulSoup(conteudo_pagina, 'html.parser')
+                print("The request was successful")
+                page_conteud = response.content
+                soup = BeautifulSoup(page_conteud, 'html.parser')
                 print(soup)
                 
-                # Inicializando extração da página
-                consulta_tag = soup.find('h1')
-                texto_h1 = consulta_tag.get_text()
+                # Initializing page extraction
+                consult_tag = soup.find('h1')
+                text_h1 = consult_tag.get_text()
 
-                print(texto_h1)
+                print(text_h1)
                 
-                #captura os dados de nº processo
+                # captures process number data
                 
-                texto_num_processo = soup.find(id="txtNumProcesso")
+                text_number_process = soup.find(id="txtNumProcesso")
                 
-                input_num_processo = soup.find('input', {'id': 'txtNumProcesso'})
-
-            
-                input_num_processo['value'] = self.numero_processo
-                print(input_num_processo)
-                
-                # captura os dados da parte interessada
-                texto_parte_interessada = soup.find(id="txtStrParte")
-                
-                input_parte_interessada = soup.find('input', {'id': 'txtStrParte'})
+                input_number_process = soup.find('input', {'id': 'txtNumProcesso'})
 
             
-                input_parte_interessada['value'] = self.nome_da_parte
-                print(input_parte_interessada)
-                
-                print(self.nome_da_parte)
+                input_number_process['value'] = self.number_process
+                print(input_number_process)
                 
                 
-                tag_h1_consultar = soup.find('div', {'id': 'divInfraBarraComandosSuperior'})
+                # captures process interested party
+                text_interested_party = soup.find(id="txtStrParte")
                 
-                # captura os dados de pessoa jurídica
+                input_interested_party = soup.find('input', {'id': 'txtStrParte'})
+
+            
+                input_interested_party['value'] = self.name_part
+                print(input_interested_party)
                 
-                input_pessoa_juridica = soup.find('input', {'id': 'rdoPessoaJuridica'})
+                print(self.name_part)
                 
-                print(input_pessoa_juridica)
+                tag_h1_consult = soup.find('div', {'id': 'divInfraBarraComandosSuperior'})
                 
-                label_pessoa_juridica = soup.find('label', {'id': 'lblPessoaJuridica'})
+                # captures person legal
                 
-                print(label_pessoa_juridica)
+                input_person_legal = soup.find('input', {'id': 'rdoPessoaJuridica'})
                 
-                # captura os dados de cnpj
+                print(input_person_legal)
+                
+                label_person_legal = soup.find('label', {'id': 'lblPessoaJuridica'})
+                
+                print(label_person_legal)
+                
+                # captures cnpj
                 
                 label_cnpj = soup.find('label', {'id': 'lblCpfCnpj'})
                 
@@ -113,100 +113,100 @@ class ConsultarProcessos():
                 
                 print(self.cnpj)
                 
-                url_numero_processos = f'https://eproc.trf2.jus.br/eproc/externo_controlador.php?acao=processo_seleciona_publica&acao_origem=processo_consulta_publica&acao_retorno=processo_consulta_publica&num_processo={self.numero_processo}'
-                print(url_numero_processos)
+                url_number_process = f'https://eproc.trf2.jus.br/eproc/externo_controlador.php?acao=processo_seleciona_publica&acao_origem=processo_consulta_publica&acao_retorno=processo_consulta_publica&num_processo={self.number_process}'
+                print(url_number_process)
                 
                 headers = {"User-Agent": "Mozilla/5.0"}
-                resp = requests.get(url_numero_processos, headers)
+                resp = requests.get(url_number_process, headers)
                 if resp.status_code == 200:
-                    print("A requisição ocorreu com sucesso")
-                    page_conteudo = resp.content
-                    print(page_conteudo)
-                    #apresenta o conteúdo da aplicação
-                    soup = BeautifulSoup(page_conteudo, 'html.parser')
+                    print("The request was successful")
+                    page_context = resp.content
+                    print(page_context)
+                    # presents the content of the application
+                    soup = BeautifulSoup(page_context, 'html.parser')
                     print(soup)
                     
-                    tag_consulta_pr = soup.find('h1')
-                    text_h1 = tag_consulta_pr.get_text()
+                    tag_consult_pr = soup.find('h1')
+                    text_h1 = tag_consult_pr.get_text()
 
                     print(text_h1)
                     
-                    tag_capa = soup.find('legend')
-                    text_capa = tag_capa.get_text()
+                    tag_cover = soup.find('legend')
+                    text_cover = tag_cover.get_text()
 
-                    print(text_capa)
+                    print(text_cover)
                     
-                    label = soup.find('label', {'id': 'lblNumProcesso'})
-                    label_text = label.get_text(strip=True)
+                    # extrair name number process
+                    
+                    label_number_process = soup.find('label', {'id': 'lblNumProcesso'})
+                    label_text_number_process = label_number_process.get_text(strip=True)
 
-                    print(label_text)
+                    print(label_text_number_process)
                     
-                    span = soup.find('span', {'id': 'txtNumProcesso'})
-                    span_text = span.get_text(strip=True)
+                    span_text_number_process = soup.find('span', {'id': 'txtNumProcesso'})
+                    span_text_number_process = span_text_number_process.get_text(strip=True)
 
-                    print(span_text)
+                    print(span_text_number_process)
                     
-                    # situação
+                    # extrair situation process
                     
-                    label_situacao = soup.find('label', {'id': 'lblSituacao'})
-                    label_text_situacao = label_situacao.get_text(strip=True)
+                    label_situation = soup.find('label', {'id': 'lblSituacao'})
+                    label_text_situation = label_situation.get_text(strip=True)
 
-                    print(label_text_situacao)
+                    print(label_text_situation)
                     
-                    span_situacao = soup.find('span', {'id': 'txtSituacao'})
-                    span_text_situacao = span_situacao.get_text(strip=True)
+                    span_situation = soup.find('span', {'id': 'txtSituacao'})
+                    span_text_situation = span_situation.get_text(strip=True)
 
-                    print(span_text_situacao)
+                    print(span_text_situation)
                     
-                    #partes interessadas
+                    # get in interested party
                     
-                    legenda_partes = soup.find('fieldset', {'id': 'fldPartes'})
-                    text_legenda_partes =  legenda_partes.get_text(strip=True)
+                    text_legend_interested_party = soup.find('fieldset', {'id': 'fldPartes'})
+                    text_legend_interested_parts =  text_legend_interested_party.get_text(strip=True)
 
-                    print(text_legenda_partes)
+                    print(text_legend_interested_parts)
                     
-                    #evento
+                    # get in event
                     
-                    evento_partes = soup.find('table', {'class': 'infraTable'})
-                    text_evento_partes =  evento_partes.get_text(strip=True)
+                    event_parts = soup.find('table', {'class': 'infraTable'})
+                    text_event_parts =  event_parts.get_text(strip=True)
 
-                    print(text_evento_partes)
-                   
+                    print(text_event_parts)
                     
                     
+                    # saving the captured values and placing them in the dictionary
+                    save_file = {
+                        'Consulta':text_h1,
+                        'Capa do Processo':text_cover,
+                        label_text_number_process:span_text_number_process,
+                        label_text_situation:span_text_situation,
+                        'Partes e Representantes':text_legend_interested_parts
+                        
+                        
+                    }   
                     
-             
-            # salvando os valores capturados e    
-            save_file = {
-                'Consulta':text_h1,
-                'Capa':text_capa,
-                label_text:span_text,
-                label_text_situacao:span_text_situacao,
-                'Partes e Representantes':text_legenda_partes
+                    print(save_file)    
+                    
+                    
+                    file = os.path.join(self.diretory_search_process, 'buscar_processos.json')
+                    with open(file, 'w', encoding='utf-8') as f:
+                        json.dump(save_file, f, indent=4)
+
+                    print('files of save')
+        
                 
-                
-            }   
-            
-            print(save_file)    
-            
-            arquivo = os.path.join(self.diretorio_buscar_processos, 'buscar_processos.json')
-            with open(arquivo, 'w') as f:
-                json.dump(save_file, f, indent=4)
-
-            print('salvar os arquivos')
-     
-             
-                              
+                                
         except:
-            print("Erro ao realizar a requisição")
+            print("Error in requisition")
             
-            
-    # salvar os arquivos em um banco de dados 
+                
+    # save files in database
+    # def saveDadosBD(self):
+    #     pass
              
-
-            
-# realizando a instância da classe
+# realizing the class instance
 if __name__ == '__main__':
-    consulta_de_processos = ConsultarProcessos()
-    consulta_de_processos.criando_diretororio_buscar_processos()
-    consulta_de_processos.executar_buscar_processos()
+    consut_processes = ConsultProcess()
+    consut_processes.create_diretory_search_process()
+    consut_processes.execute_search_process()
